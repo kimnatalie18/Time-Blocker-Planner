@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Blocker Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>Time Blocker Planner</h1>
+  <div class="datenav">
+    <button class="btn icon" id="prev" aria-label="Hari sebelumnya">&larr;</button>
+    <span class="datelabel" id="dateLabel" aria-live="polite"></span>
+    <button class="btn icon" id="next" aria-label="Hari berikutnya">&rarr;</button>
+    <input type="date" id="datePick" aria-label="Pilih tanggal">
+    <button class="btn" id="today">Hari ini</button>
+    <button class="btn primary" id="addBtn">Tambah blok</button>
+  </div>
+</header>
+
+<div class="layout">
+  <section class="panel board" aria-label="Jadwal 24 jam">
+    <div class="scroller" id="scroller">
+      <div class="timeline">
+        <div class="labels" id="labels"></div>
+        <div class="slots" id="slots">
+          <div class="ghost" id="ghost"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside>
+    <div class="panel">
+      <h2>Ringkasan hari ini</h2>
+      <p class="sub" id="summary"></p>
+      <ul class="legend" id="legend"></ul>
+    </div>
+
+    <div class="panel">
+      <h2>Kunci jadwal</h2>
+      <p class="sub">Blok terkunci tidak bisa diubah, dipindah, atau dihapus, dan waktunya tidak bisa ditimpa blok lain.</p>
+      <div class="stack">
+        <button class="btn" id="lockAll">Kunci semua blok hari ini</button>
+        <button class="btn" id="unlockAll">Buka semua kunci hari ini</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Kategori baru</h2>
+      <form class="stack" id="catForm">
+        <div class="row-inline">
+          <input type="text" id="catName" placeholder="Nama kategori" maxlength="24" required aria-label="Nama kategori">
+          <input type="color" id="catColor" value="#0ea5e9" aria-label="Warna kategori">
+        </div>
+        <button class="btn" type="submit">Tambah kategori</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Cara pakai</h2>
+      <p class="sub" style="margin:0">Seret di area kosong untuk membuat blok. Seret blok untuk memindahkan, tarik tepi bawahnya untuk mengubah durasi, klik untuk mengedit. Di layar sentuh, ketuk jam kosong untuk membuat blok satu jam.</p>
+    </div>
+  </aside>
+</div>
+
+<dialog id="dlg">
+  <form id="blockForm">
+    <h3 id="dlgTitle">Blok baru</h3>
+    <div class="field">
+      <label for="fTitle">Nama aktivitas</label>
+      <input type="text" id="fTitle" maxlength="60" placeholder="Contoh: Mengerjakan laporan">
+    </div>
+    <div class="field">
+      <label for="fCat">Kategori</label>
+      <select id="fCat"></select>
+    </div>
+    <div class="two">
+      <div class="field">
+        <label for="fStart">Mulai</label>
+        <select id="fStart"></select>
+      </div>
+      <div class="field">
+        <label for="fEnd">Selesai</label>
+        <select id="fEnd"></select>
+      </div>
+    </div>
+    <label class="check">
+      <input type="checkbox" id="fLock">
+      <span>Kunci blok ini<small>Waktu ini tidak bisa diubah atau ditimpa sampai kunci dibuka.</small></span>
+    </label>
+    <p class="error" id="fError" role="alert"></p>
+    <div class="actions">
+      <button type="button" class="btn danger spacer" id="fDelete">Hapus</button>
+      <button type="button" class="btn" id="fCancel">Batal</button>
+      <button type="submit" class="btn primary">Simpan blok</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
